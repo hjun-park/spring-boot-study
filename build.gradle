@@ -1,0 +1,62 @@
+
+//// 01. 기본 코드들
+//plugins {
+//    id 'java'
+//}
+//
+//group 'org.example'
+//version '1.0-SNAPSHOT'
+//
+//repositories {
+//    mavenCentral()
+//    jcenter() //
+//}
+//
+//dependencies {
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+//}
+//
+//test {
+//    useJUnitPlatform()
+//}
+
+/*
+    gradle 프로젝트를 스프링 부트 프로젝트로 변경작업
+    스페셜 이니셜라이저 이용해서 진행하지 않고 직접 작성하여 진행
+*/
+
+// 02. 프로젝트의 플로그인 의존성 관리를 위한 설정
+buildscript {
+    ext { // build.gradle에서 사용하는 전역변수를 설정하겠다는 의미
+        springBootVersion = '2.1.7.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+// 03. 선언한 플러그인 의존성들을 적용할 것인지 결정하는 코드
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management' // 스프링 부트의 플러그인 의존성 관리하는 플러그인 ( 필수 )
+
+group 'com.mera.book'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {   // 각종 의존성 라이브러리들을 어떤 원격 저장소에서 다운 받을 지
+    mavenCentral() // 주로 이걸 사용하지만 최근에는 라이브러리 업로드 난이도 때문에 jcenter 사용
+                    // 점점 jcenter 쓰는 추세가 늘어남 .
+}
+
+dependencies {  // 프로젝트 개발에 필요한 의존성들을 선언하는 곳 ( 중간에 치다가 Ctrl + space 하면 자동완성 )
+    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    // 의존성 뒤에 버전을 붙이면 안 됨. ( 이미 springBootVersion 을 따라가기 때문에 )
+}
