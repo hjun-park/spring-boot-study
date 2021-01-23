@@ -57,6 +57,8 @@ repositories {   // 각종 의존성 라이브러리들을 어떤 원격 저장�
 
 dependencies {  // 프로젝트 개발에 필요한 의존성들을 선언하는 곳 ( 중간에 치다가 Ctrl + space 하면 자동완성 )
     compile('org.springframework.boot:spring-boot-starter-web')
+    // 롬복 ( 자바 toString, 기본생성자, getter, setter를 어노테이션으로 자동으로 설정
+    compile('org.projectlombok:lombok')
     testCompile('org.springframework.boot:spring-boot-starter-test')
     // 의존성 뒤에 버전을 붙이면 안 됨. ( 이미 springBootVersion 을 따라가기 때문에 )
 }
