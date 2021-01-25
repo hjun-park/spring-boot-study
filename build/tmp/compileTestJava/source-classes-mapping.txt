@@ -1,2 +1,0 @@
-com/mera/book/AWS/web/HelloControllerTest.java
- com.mera.book.AWS.web.HelloControllerTest

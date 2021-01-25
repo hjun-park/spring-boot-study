@@ -2,3 +2,6 @@
 
 .idea
 .gradle
+
+# Hide Account
+application-oauth.properties

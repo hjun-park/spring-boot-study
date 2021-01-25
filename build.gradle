@@ -26,6 +26,7 @@
     스페셜 이니셜라이저 이용해서 진행하지 않고 직접 작성하여 진행
 */
 
+//d
 // 02. 프로젝트의 플로그인 의존성 관리를 위한 설정
 buildscript {
     ext { // build.gradle에서 사용하는 전역변수를 설정하겠다는 의미
@@ -55,10 +56,38 @@ repositories {   // 각종 의존성 라이브러리들을 어떤 원격 저장�
                     // 점점 jcenter 쓰는 추세가 늘어남 .
 }
 
-dependencies {  // 프로젝트 개발에 필요한 의존성들을 선언하는 곳 ( 중간에 치다가 Ctrl + space 하면 자동완성 )
+
+// 의존성 뒤에 버전을 붙이면 안 됨. ( 이미 springBootVersion 을 따라가기 때문에 )
+// 프로젝트 개발에 필요한 의존성들을 선언하는 곳 ( 중간에 치다가 Ctrl + space 하면 자동완성 )
+dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     // 롬복 ( 자바 toString, 기본생성자, getter, setter를 어노테이션으로 자동으로 설정
     compile('org.projectlombok:lombok')
+
+    /*
+        Spring Data JPA 적용하기 위한 의존성 등록
+        1. 스프링 부트용 Spring Data JPA 추상화 라이브러리 ( spring-boot-starter-data-jpa )
+          - 스프링부트 버전에 맞추어 자동으로 JPA 관련 라이브러리 버전 관리
+        2. 인메모리 관계형 데이터베이스 ( h2 )
+          - 별도의 설치 필요 없이 의존성만으로도 관리
+          - 메모리에서 실행되기 때문에 프로그램 재시작 때마다 초기화 된다는 점 이용하여 테스트 용도로 사용
+          - 여기서는 JPA테스트, 로컬환경 구동에서 사용할 예정
+    */
+    compile('org.springframework.boot:spring-boot-starter-data-jpa') // 1
+    compile('com.h2database:h2')                                     // 2
+
+    // 머스테치 스타터 의존성 설정
+    compile('org.springframework.boot:spring-boot-starter-mustache')
+
+    // 스프링 시큐리티 관련 의존성 설정
+    // 소셜 로그인 등 클라이언트 입장에서 소셜 기능 구현 시 필요한 의존성
+    compile('org.springframework.boot:spring-boot-starter-oauth2-client')
+
+    // 데이터베이스를 세션 저장소로 사용하기 위한 의존성 설정
+    compile('org.springframework.session:spring-session-jdbc')
+
+    // 스프링 시큐리티 테스트를 위한 여러 도구를 지원하도록 설정
+    testCompile("org.springframework.security:spring-security-test")
+
     testCompile('org.springframework.boot:spring-boot-starter-test')
-    // 의존성 뒤에 버전을 붙이면 안 됨. ( 이미 springBootVersion 을 따라가기 때문에 )
 }

@@ -1,4 +1,0 @@
-com/mera/book/AWS/web/HelloController.java
- com.mera.book.AWS.web.HelloController
-com/mera/book/AWS/Application.java
- com.mera.book.AWS.Application
