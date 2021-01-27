@@ -32,6 +32,9 @@ before_deploy:
   - mkdir -p deploy
   - mv springboot2-webservice.zip deploy/springboot2-webservice.zip
 
+before_install:
+  - chmod +x gradlew
+
 deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY
