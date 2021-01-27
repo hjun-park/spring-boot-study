@@ -2,6 +2,9 @@ language: java
 jdk:
   - openjdk8
 
+os: linux
+dist: xenial
+#sudo: required
 
 branches:
   only:
@@ -22,3 +25,20 @@ notifications:
     recipients:
       - phj0860@gmail.com
 
+
+# Travis CI에서 빌드한 Jar을 S3에 올릴 수 있도록 추가
+before_deploy:
+  - zip -r springboot2-webservice *
+  - mkdir -p deploy
+  - mv springboot2-webservice.zip deploy/springboot2-webservice.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: mera-spring-build
+    region: ap-northeast-2
+    cleanup: true
+    acl: private # zip 파일 접근을 private로
+    local_dir: deploy # before_deploy에서 생성한 디렉토리
+#    wait-until-deployed: true
